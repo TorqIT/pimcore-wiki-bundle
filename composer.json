@@ -1,0 +1,23 @@
+{
+    "name": "torqit/pimcore-wiki-bundle",
+    "description": "A Pimcore bundle for displaying markdown documentation files as a wiki in the admin interface",
+    "type": "pimcore-bundle",
+    "require": {
+        "pimcore/pimcore": "^12.0",
+        "twig/extra-bundle": "^3.23",
+        "twig/markdown-extra": "^3.23",
+        "league/commonmark": "^2.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "TorqIT\\WikiBundle\\": "src"
+        }
+    },
+    "extra": {
+        "pimcore": {
+            "bundles": [
+                "TorqIT\\WikiBundle\\WikiBundle"
+            ]
+        }
+    }
+}

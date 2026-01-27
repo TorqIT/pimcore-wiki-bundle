@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Documentation{% endblock %}</title>
+    <link rel="stylesheet" href="/css/documentation.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h1>Pimcore Documentation</h1>
+        </div>
+        <nav>
+            <ul>
+                {% for item in toc %}
+                    <li>
+                        <a href="{{ path('documentation_page', { slug: item.slug }) }}"
+                           class="{{ activeSlug == item.slug ? 'active' : '' }}">
+                            {{ item.title }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </nav>
+    </aside>
+    <main class="main-content">
+        {% block body %}{% endblock %}
+    </main>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{% extends 'documentation/layout.html.twig' %}
+
+{% block body %}
+    {% if content is not null %}
+        <div class="doc-body">
+            {{ content|markdown_to_html }}
+        </div>
+    {% else %}
+        <div class="welcome">
+            <h1>Welcome</h1>
+            <p>Select a page from the sidebar to view documentation.</p>
+        </div>
+    {% endif %}
+{% endblock %}
