@@ -9,12 +9,12 @@ services:
         # if you need to do this, you can override this setting on individual services
         public: false
 
-    TorqIT\WikiBundle\Controller\:
+    Torq\PimcoreWikiBundle\Controller\:
         resource: "../../Controller"
         public: true
         tags: ["controller.service_arguments"]
 
-    TorqIT\WikiBundle\Controller\DocumentationController:
+    Torq\PimcoreWikiBundle\Controller\DocumentationController:
         arguments:
             $documentationPath: '%wiki_bundle.documentation_path%'
         public: true

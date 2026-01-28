@@ -2,22 +2,21 @@
 
 declare(strict_types=1);
 
-namespace TorqIT\WikiBundle\Controller;
+namespace Torq\PimcoreWikiBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 class DocumentationController extends AbstractController
 {
     public function __construct(
-        private readonly string $documentationPath
+        private readonly string $documentationPath = '',
     ) {
     }
 
     #[Route('', name: 'documentation_index')]
-    public function indexAction(): Response
+    public function getIndexAction()
     {
         return $this->render('documentation/default.html.twig', [
             'toc' => $this->getTableOfContents(),
@@ -27,7 +26,7 @@ class DocumentationController extends AbstractController
     }
 
     #[Route('/{slug}', name: 'documentation_page', requirements: ['slug' => '.+'])]
-    public function pageAction(string $slug): Response
+    public function getPageAction(string $slug)
     {
         $filePath = $this->documentationPath . '/' . $slug . '.md';
 
@@ -53,7 +52,7 @@ class DocumentationController extends AbstractController
     }
 
     #[Route('/images/{filename}', name: 'documentation_image', priority: 10)]
-    public function imageAction(string $filename): Response
+    public function getImageAction(string $filename)
     {
         $path = $this->documentationPath . '/images/' . $filename;
 
