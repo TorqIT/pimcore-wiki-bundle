@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class DocumentationController extends AbstractController
 {
     public function __construct(
-        #[Autowire('torq_pimcorewiki.documentation_path')] private readonly string $documentationPath,
+        #[Autowire(param: 'torq_pimcorewiki.documentation_path')] private readonly string $documentationPath,
     ) {
     }
 
