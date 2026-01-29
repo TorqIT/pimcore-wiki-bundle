@@ -10,12 +10,6 @@ services:
         public: false
 
     Torq\PimcoreWikiBundle\Controller\:
-        resource: "../../Controller"
-        public: true
-        tags: ["controller.service_arguments"]
-
-    Torq\PimcoreWikiBundle\Controller\DocumentationController:
-        arguments:
-            $documentationPath: '%wiki_bundle.documentation_path%'
+        resource: "../src/Controller/"
         public: true
         tags: ["controller.service_arguments"]

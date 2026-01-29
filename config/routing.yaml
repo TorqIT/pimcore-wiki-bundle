@@ -1,5 +1,5 @@
 app:
-    resource: "@TorqPimcoreWikiBundle/Controller/"
+    resource: "../src/Controller"
     type: attribute
     prefix: /admin/documentation
     options:

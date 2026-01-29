@@ -5,28 +5,31 @@ declare(strict_types=1);
 namespace Torq\PimcoreWikiBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\Attribute\AsAlias;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Routing\Attribute\Route;
 
+#[AsAlias('wiki_bundle')]
 class DocumentationController extends AbstractController
 {
     public function __construct(
-        private readonly string $documentationPath = '',
+        #[Autowire('torq_pimcorewiki.documentation_path')] private readonly string $documentationPath,
     ) {
     }
 
-    #[Route('', name: 'documentation_index')]
-    public function getIndexAction()
+    #[Route('', name: 'torq_pimcorewiki_documentation_showindex')]
+    public function showIndexAction()
     {
-        return $this->render('documentation/default.html.twig', [
+        return $this->render('@TorqPimcoreWiki/documentation/index.html.twig', [
             'toc' => $this->getTableOfContents(),
             'content' => null,
             'activeSlug' => null,
         ]);
     }
 
-    #[Route('/{slug}', name: 'documentation_page', requirements: ['slug' => '.+'])]
-    public function getPageAction(string $slug)
+    #[Route('/{slug}', name: 'torq_pimcorewiki_documentation_showpage', requirements: ['slug' => '.+'])]
+    public function showPageAction(string $slug)
     {
         $filePath = $this->documentationPath . '/' . $slug . '.md';
 
@@ -44,14 +47,14 @@ class DocumentationController extends AbstractController
 
         $content = file_get_contents($filePath);
 
-        return $this->render('documentation/default.html.twig', [
+        return $this->render('@TorqPimcoreWiki/documentation/index.html.twig', [
             'toc' => $this->getTableOfContents(),
             'content' => $content,
             'activeSlug' => $slug,
         ]);
     }
 
-    #[Route('/images/{filename}', name: 'documentation_image', priority: 10)]
+    #[Route('/images/{filename}', name: 'torq_pimcorewiki_documentation_getimage', priority: 10)]
     public function getImageAction(string $filename)
     {
         $path = $this->documentationPath . '/images/' . $filename;
