@@ -15,7 +15,7 @@
             <ul>
                 {% for item in toc %}
                     <li>
-                        <a href="{{ path('torq_pimcorewiki_documentation_showpage', { slug: item.slug }) }}"
+                        <a href="{{ path('torq_pimcore_wiki_documentation_showpage', { slug: item.slug }) }}"
                            class="{{ activeSlug == item.slug ? 'active' : '' }}">
                             {{ item.title }}
                         </a>

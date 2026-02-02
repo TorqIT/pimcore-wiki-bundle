@@ -32,6 +32,6 @@ class TorqPimcoreWikiBundle extends AbstractBundle
     public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
     {
         $container->import('../config/services.yaml');
-        $container->parameters()->set('torq_pimcorewiki.documentation_path', $config['documentation_path']);
+        $container->parameters()->set('torq_pimcore_wiki.documentation_path', $config['documentation_path']);
     }
 }

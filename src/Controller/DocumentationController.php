@@ -14,11 +14,11 @@ use Symfony\Component\Routing\Attribute\Route;
 class DocumentationController extends AbstractController
 {
     public function __construct(
-        #[Autowire(param: 'torq_pimcorewiki.documentation_path')] private readonly string $documentationPath,
+        #[Autowire(param: 'torq_pimcore_wiki.documentation_path')] private readonly string $documentationPath,
     ) {
     }
 
-    #[Route('', name: 'torq_pimcorewiki_documentation_showindex')]
+    #[Route('', name: 'torq_pimcore_wiki_documentation_showindex')]
     public function showIndexAction()
     {
         return $this->render('@TorqPimcoreWiki/documentation/index.html.twig', [
@@ -28,7 +28,7 @@ class DocumentationController extends AbstractController
         ]);
     }
 
-    #[Route('/{slug}', name: 'torq_pimcorewiki_documentation_showpage', requirements: ['slug' => '.+'])]
+    #[Route('/{slug}', name: 'torq_pimcore_wiki_documentation_showpage', requirements: ['slug' => '.+'])]
     public function showPageAction(string $slug)
     {
         $filePath = $this->documentationPath . '/' . $slug . '.md';
@@ -54,7 +54,7 @@ class DocumentationController extends AbstractController
         ]);
     }
 
-    #[Route('/images/{filename}', name: 'torq_pimcorewiki_documentation_getimage', priority: 10)]
+    #[Route('/images/{filename}', name: 'torq_pimcore_wiki_documentation_getimage', priority: 10)]
     public function getImageAction(string $filename)
     {
         $path = $this->documentationPath . '/images/' . $filename;
