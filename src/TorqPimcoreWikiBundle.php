@@ -2,15 +2,24 @@
 
 namespace Torq\PimcoreWikiBundle;
 
+use Pimcore\Extension\Bundle\AbstractPimcoreBundle;
+use Pimcore\Extension\Bundle\PimcoreBundleAdminClassicInterface;
 use Pimcore\Extension\Bundle\Traits\BundleAdminClassicTrait;
 use Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
 
-class TorqPimcoreWikiBundle extends AbstractBundle
+class TorqPimcoreWikiBundle extends AbstractPimcoreBundle implements PimcoreBundleAdminClassicInterface
 {
     use BundleAdminClassicTrait;
+
+    public function getJsPaths(): array
+    {
+        return [
+            '/bundles/torqpimcorewiki/addLinkToAdminToolbar.js',
+        ];
+    }
 
     public function getPath(): string
     {
