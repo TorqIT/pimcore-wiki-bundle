@@ -31,22 +31,17 @@ class DocumentationController extends AbstractController
     #[Route('/{slug}', name: 'torq_pimcore_wiki_documentation_showpage', requirements: ['slug' => '.+'])]
     public function showPageAction(string $slug)
     {
+        $slug = urlencode($slug);
         $filePath = $this->documentationPath . '/' . $slug . '.md';
-
         if (!file_exists($filePath)) {
             throw $this->createNotFoundException(sprintf('Documentation page "%s" not found.', $slug));
         }
-
-        // Security: Ensure the path is within the documentation directory
         $realDocPath = realpath($this->documentationPath);
         $realFilePath = realpath($filePath);
-
         if (!$realFilePath || !str_starts_with($realFilePath, $realDocPath)) {
             throw $this->createAccessDeniedException('Invalid file path.');
         }
-
-        $content = file_get_contents($filePath);
-
+        $content = file_get_contents($realFilePath);
         return $this->render('@TorqPimcoreWiki/documentation/index.html.twig', [
             'toc' => $this->getTableOfContents(),
             'content' => $content,
@@ -57,21 +52,17 @@ class DocumentationController extends AbstractController
     #[Route('/images/{filename}', name: 'torq_pimcore_wiki_documentation_getimage', priority: 10)]
     public function getImageAction(string $filename)
     {
+        $filename = urlencode($filename);
         $path = $this->documentationPath . '/images/' . $filename;
-
         if (!file_exists($path)) {
             throw $this->createNotFoundException(sprintf('Image "%s" not found.', $filename));
         }
-
-        // Security: Ensure the path is within the documentation directory
         $realDocPath = realpath($this->documentationPath);
         $realFilePath = realpath($path);
-
         if (!$realFilePath || !str_starts_with($realFilePath, $realDocPath)) {
             throw $this->createAccessDeniedException('Invalid file path.');
         }
-
-        return $this->file($path);
+        return $this->file($realFilePath);
     }
 
     private function getTableOfContents(): array
