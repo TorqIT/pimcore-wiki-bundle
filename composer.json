@@ -1,5 +1,5 @@
 {
-    "license": "POCL",
+    "license": "proprietary",
     "name": "torq/pimcore-wiki-bundle",
     "description": "A Pimcore bundle for displaying markdown documentation files as a wiki in the admin interface",
     "version": "v0.0.0",
